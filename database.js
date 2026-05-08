@@ -4,7 +4,7 @@ const db = new sqlite3.Database("./estoque.db", (err) => {
   if (err) {
     console.error("Erro ao conectar no banco", err);
   } else {
-    console.log("Banco conectado 🚀");
+    console.log("Banco conectado ??");
   }
 });
 
@@ -68,12 +68,21 @@ db.serialize(() => {
     )
   `);
 
-  db.run(`INSERT OR IGNORE INTO unidades (id, nome) VALUES (1, 'Matriz')`);
+  db.run(`
+    INSERT INTO unidades (id, nome)
+    VALUES (1, 'Matriz')
+    ON CONFLICT(id) DO NOTHING
+  `);
 
   db.run(`
-    INSERT OR IGNORE INTO funcionarios
+    INSERT INTO funcionarios
     (id, nome, login, senha, cargo, unidade_id, ativo)
-    VALUES (1, 'Administrador', 'admin', 'admin', 'Administrador', 1, 1)
+    VALUES (1, 'Administrador', 'admin', '123', 'Administrador', 1, 1)
+    ON CONFLICT(login) DO UPDATE SET
+      senha = '123',
+      ativo = 1,
+      cargo = 'Administrador',
+      unidade_id = 1
   `);
 });
 
