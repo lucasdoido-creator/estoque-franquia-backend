@@ -69,4 +69,13 @@ db.serialize(() => {
   `);
 });
 
+  db.run(`INSERT OR IGNORE INTO unidades (id, nome) VALUES (1, 'Matriz')`);
+
+  db.run(`
+    INSERT OR IGNORE INTO funcionarios
+    (id, nome, login, senha, cargo, unidade_id, ativo)
+    VALUES (1, 'Administrador', 'admin', 'admin', 'Administrador', 1, 1)
+  `);
+});
+
 module.exports = db;
