@@ -67,7 +67,6 @@ db.serialize(() => {
       FOREIGN KEY(funcionario_id) REFERENCES funcionarios(id)
     )
   `);
-});
 
   db.run(`INSERT OR IGNORE INTO unidades (id, nome) VALUES (1, 'Matriz')`);
 
