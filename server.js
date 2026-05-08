@@ -1,5 +1,4 @@
 const express = require("express");
-const sqlite3 = require("sqlite3").verbose();
 const cors = require("cors");
 const multer = require("multer");
 const path = require("path");
@@ -10,8 +9,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const PORT = 5000;
-const db = new sqlite3.Database("estoque.db");
+const PORT = process.env.PORT || 5000;
+const db = require("./database");
 
 function normalizarNumero(valor, padrao = 0) {
   if (valor === null || valor === undefined || valor === "") return padrao;
